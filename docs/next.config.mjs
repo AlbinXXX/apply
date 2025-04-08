@@ -20,9 +20,11 @@ export default withNextra({
         const allowedSvgRegex = /components\/icons\/.+\.svg$/
 
         const fileLoaderRule = config.module.rules.find(rule =>
-            rule.test?.test('.svg')
+            rule.test && rule.test.toString().includes('svg')
         )
-        fileLoaderRule.exclude = allowedSvgRegex
+        if (fileLoaderRule) {
+            fileLoaderRule.exclude = allowedSvgRegex
+        }
 
         config.module.rules.push({
             test: allowedSvgRegex,
